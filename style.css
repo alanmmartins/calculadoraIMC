@@ -51,7 +51,8 @@ main {
 }
 
 section {
-    background-color: #ffffff;
+   /*  background-color: linear-gradient(#30D158); */
+    background-color: #e86c6c;
     padding: 25px;
     margin: 30px 0;
     border-radius: 8px;

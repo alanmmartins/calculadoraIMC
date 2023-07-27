@@ -18,17 +18,14 @@ function calculaImc(event) {
 
     console.log("funciono!!!!!!!!!!!!");
 
-
-
     let dadosUsuario = pegarValores();
-
-
     let imc = calcular(dadosUsuario.altura, dadosUsuario.peso);
+    let classificacaoImc = classificarImc(imc);
 
+    let dadosUsuarioAtualizado =  organizarDados(dadosUsuario,imc,classificacaoImc );
+    cadastrarUsuario(dadosUsuarioAtualizado);
 
-    
-
-    console.log(classificarImc(imc));
+ 
 
 }
 
@@ -95,4 +92,32 @@ function classificarImc(imc) {
 
     }
 
+}
+//passo 4 -organizar informacion
+
+function organizarDados(dadosUsuario,valorImc,classificacaoImc) {
+    let dataHoraAtual = Intl.DateTimeFormat('pt-BR',{timeStyle: 'long',dateStyle: 'short'}).format(Date.now())
+
+    let dadosUsuarioAtualizado = {
+        ...dadosUsuario,
+        imc:valorImc.toFixed(2),
+        classificacao : classificacaoImc,
+        dataCadastro : dataHoraAtual
+    }
+    console.log( dadosUsuarioAtualizado);
+
+    return dadosUsuarioAtualizado;
+}
+
+//passo 5 -Salvar os dados na lista
+function cadastrarUsuario(usuario) {
+    let listaUsuarios = [];
+    if (localStorage.getItem('usuariosCadastrados')) {
+        listaUsuarios = JSON.parse(localStorage.getItem('usuariosCadastrados'));
+    }
+
+    listaUsuarios.push(usuario);
+    localStorage.setItem("usuariosCadastrados",JSON.stringify(listaUsuarios));
+
+    
 }
